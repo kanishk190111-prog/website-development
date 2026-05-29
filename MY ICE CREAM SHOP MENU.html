@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Ice Cream Shop Menu</title>
+    <style>
+        /* Basic page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            /* light blue background */
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Main container to center everything */
+        .menu-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        /* Header styling */
+        h1 {
+            color: #ff6b6b;
+            /* light red color */
+            text-align: center;
+        }
+
+        /* Requirement 5: Sibling selector - selects the first p that comes right after an h2 */
+        h2+p {
+            color: #555;
+            text-align: center;
+            font-style: italic;
+            margin-top: 0;
+        }
+
+        h2 {
+            color: #4ecdc4;
+            /* teal color */
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        /* Requirement 4: Style the first letter of a paragraph */
+        .intro::first-letter {
+            font-size: 24px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* Requirement 1: Advanced selector - ul > li selects only li elements that are direct children of ul */
+        ul>li {
+            list-style-type: none;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #fff4e6;
+            /* light orange */
+            border: 1px solid #ffd6a5;
+            border-radius: 5px;
+        }
+
+        /* Requirement 3: Hover effect - changes background color when you move mouse over menu items */
+        ul>li:hover {
+            background-color: #ffe5b4;
+            /* darker orange on hover */
+            cursor: pointer;
+        }
+
+        /* Requirement 2: Special class to highlight one special flavour */
+        .special-flavour {
+            background-color: #ffcccb;
+            /* light pink for special item */
+            border: 2px solid #ff6b6b;
+            /* darker border */
+            font-weight: bold;
+        }
+
+        /* Keep the special color even on hover */
+        .special-flavour:hover {
+            background-color: #ffb3b3;
+            /* slightly darker pink on hover */
+        }
+
+        /* Price styling */
+        .price {
+            float: right;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu-container">
+        <h1>KANISHK's Ice Cream Shop</h1>
+
+        <h2>Our Flavours</h2>
+        <!-- The p below will be styled by h2 + p sibling selector -->
+        <p>Made fresh daily!</p>
+
+        <!-- This paragraph uses ::first-letter to make the first letter bigger -->
+        <p class="intro">Welcome to our shop. We have the best ice cream in town. Come try a scoop today!</p>
+
+        <!-- Menu list using ul > li selector -->
+        <ul>
+            <li>Vanilla <span class="price">$2.50</span></li>
+            <li>Chocolate <span class="price">$2.50</span></li>
+            <!-- This is our special flavour using the special-flavour class -->
+            <li class="special-flavour">Strawberry Cheesecake <span class="price">$3.00</span></li>
+            <li>Mint Chip <span class="price">$2.75</span></li>
+        </ul>
+
+    </div>
+</body>
+
+</html>

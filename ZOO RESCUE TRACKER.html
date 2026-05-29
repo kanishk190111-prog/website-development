@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo Rescue Tracker</title>
+    <style>
+        /* 
+    CSS Positioning Demo: Zoo Rescue Tracker
+    This file demonstrates all 5 CSS positioning types:
+    1. static - default positioning
+    2. relative - positioned relative to normal flow
+    3. absolute - positioned relative to nearest positioned ancestor
+    4. fixed - positioned relative to viewport, stays on scroll
+    5. sticky - switches between relative and fixed based on scroll
+    */
+
+        :root {
+            --primary: #1e7e34;
+            --primary-light: #28a745;
+            --accent: #ff7b25;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --success: #28a745;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 
+    STATIC POSITIONING: Default positioning for all elements
+    Elements appear in normal document flow. Top, left, right, bottom have no effect.
+    */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            position: static;
+            /* Explicit static - this is the default */
+        }
+
+        /* 
+    FIXED POSITIONING: Stays in the same place even when page is scrolled
+    Positioned relative to the viewport. Used here for status bar
+    */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            /* High z-index to stay on top of other content */
+        }
+
+        .status-bar h3 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .rescue-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 
+    RELATIVE POSITIONING: Still in document flow, but can be offset with top/left/right/bottom
+    Used as a container for absolutely positioned children
+    */
+        .header {
+            position: relative;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c33 100%);
+            color: white;
+            padding: 5rem 1.5rem 3rem;
+            /* Extra top padding to account for fixed status bar */
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .header::before {
+            /* 
+        ABSOLUTE POSITIONING: Removed from document flow
+        Positioned relative to nearest positioned ancestor (.header with position: relative)
+        */
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            /* Ensures text appears above the absolute ::before element */
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 968px) {
+            .container {
+                grid-template-columns: 1fr 320px;
+            }
+        }
+
+        .animals-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        /* 
+    RELATIVE POSITIONING: This card serves as a positioning context for absolute children
+    The card itself stays in normal flow but can be nudged with top/left if needed
+    */
+        .animal-card {
+            position: relative;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .animal-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* 
+    ABSOLUTE POSITIONING: Positioned relative to .animal-card because it has position: relative
+    Removed from document flow and placed in top-right corner of card
+    */
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-transit {
+            background: var(--warning);
+            color: #713f12;
+        }
+
+        .badge-rescued {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-critical {
+            background: var(--danger);
+            color: white;
+        }
+
+        .animal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .animal-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .animal-info h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+            color: var(--text);
+        }
+
+        .animal-species {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .animal-details {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .detail-icon {
+            width: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-light);
+            min-width: 80px;
+        }
+
+        /* 
+    STICKY POSITIONING: Acts like relative until scroll reaches threshold, then sticks like fixed
+    Must have a scrollable ancestor. Sticks when top: 5rem is reached during scroll
+    */
+        .sidebar {
+            position: sticky;
+            top: 5rem;
+            /* Distance from top of viewport when it becomes "stuck" */
+            height: fit-content;
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.2s ease;
+        }
+
+        .contact-item:hover {
+            border-left-width: 6px;
+            transform: translateX(2px);
+        }
+
+        .contact-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-role {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-phone {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-phone:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer uses static positioning by default */
+        .footer {
+            position: static;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 2rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .status-bar {
+                padding: 0.625rem 1rem;
+            }
+
+            .status-bar h3 {
+                font-size: 0.875rem;
+            }
+
+            .animal-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .status-badge {
+                position: static;
+                /* On mobile, badges flow normally instead of absolute */
+                display: inline-block;
+                margin-bottom: 1rem;
+            }
+
+            /* 
+        Change sticky to static on mobile so sidebar flows normally at bottom
+        Sticky can be problematic on small screens
+        */
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- FIXED POSITION: This status bar stays at top of viewport when scrolling -->
+    <div class="status-bar">
+        <h3>🚑 Rescue Operations</h3>
+        <div class="rescue-count">Active Rescues: 3</div>
+    </div>
+
+    <!-- RELATIVE POSITION: Header is positioned relative to allow absolute children -->
+    <header class="header">
+        <h1>Zoo Rescue Tracker</h1>
+        <p>Monitoring and coordinating wildlife rescue operations</p>
+    </header>
+
+    <div class="container">
+        <main class="animals-grid">
+            <!-- RELATIVE POSITION: Each card is a positioning context for absolute badges -->
+            <article class="animal-card">
+                <!-- ABSOLUTE POSITION: Badge positioned to top-right of relative parent -->
+                <div class="status-badge badge-critical">Critical</div>
+
+                <div class="animal-header">
+                    <div class="animal-icon">🦁</div>
+                    <div class="animal-info">
+                        <h2>Leo the Lion</h2>
+                        <div class="animal-species">Panthera leo</div>
+                    </div>
+                </div>
+
+                <div class="animal-details">
+                    <div class="detail-row">
+                        <span class="detail-icon">📍</span>
+                        <span class="detail-label">Location:</span>
+                        <span>Savanna Habitat - Section A3</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">📅</span>
+                        <span class="detail-label">Rescue Date:</span>
+                        <span>March 15, 2024</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">🏥</span>
+                        <span class="detail-label">Status:</span>
+                        <span>Medical evaluation in progress</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- RELATIVE POSITION: Second card also serves as positioning context -->
+            <article class="animal-card">
+                <!-- ABSOLUTE POSITION: Badge positioned to top-right of this card -->
+                <div class="status-badge badge-transit">In Transit</div>
+
+                <div class="animal-header">
+                    <div class="animal-icon">🐘</div>
+                    <div class="animal-info">
+                        <h2>Ella the Elephant</h2>
+                        <div class="animal-species">Loxodonta africana</div>
+                    </div>
+                </div>
+
+                <div class="animal-details">
+                    <div class="detail-row">
+                        <span class="detail-icon">📍</span>
+                        <span class="detail-label">Location:</span>
+                        <span>En route to Sanctuary Facility</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">📅</span>
+                        <span class="detail-label">Rescue Date:</span>
+                        <span>March 12, 2024</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">🚚</span>
+                        <span class="detail-label">ETA:</span>
+                        <span>2 hours to destination</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- RELATIVE POSITION: Third card with absolute badge -->
+            <article class="animal-card">
+                <!-- ABSOLUTE POSITION: Badge positioned to top-right of this card -->
+                <div class="status-badge badge-rescued">Rescued</div>
+
+                <div class="animal-header">
+                    <div class="animal-icon">🐒</div>
+                    <div class="animal-info">
+                        <h2>Milo the Monkey</h2>
+                        <div class="animal-species">Cebus capucinus</div>
+                    </div>
+                </div>
+
+                <div class="animal-details">
+                    <div class="detail-row">
+                        <span class="detail-icon">📍</span>
+                        <span class="detail-label">Location:</span>
+                        <span>Primate Rehabilitation Center</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">📅</span>
+                        <span class="detail-label">Rescue Date:</span>
+                        <span>March 10, 2024</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-icon">✅</span>
+                        <span class="detail-label">Status:</span>
+                        <span>Successfully relocated and adapting well</span>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+        <!-- STICKY POSITION: Sidebar sticks to top of viewport when scrolling past it -->
+        <aside class="sidebar">
+            <h2>🚨 Emergency Contacts</h2>
+            <div class="contact-list">
+                <div class="contact-item">
+                    <div class="contact-name">Dr. Sarah Chen</div>
+                    <div class="contact-role">Head Veterinarian</div>
+                    <a href="tel:555-0101" class="contact-phone">
+                        📞 555-0101
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-name">Marcus Rodriguez</div>
+                    <div class="contact-role">Rescue Team Lead</div>
+                    <a href="tel:555-0102" class="contact-phone">
+                        📞 555-0102
+                    </a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-name">Emergency Hotline</div>
+                    <div class="contact-role">24/7 Response Team</div>
+                    <a href="tel:555-0911" class="contact-phone">
+                        📞 555-0911
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- STATIC POSITION: Footer uses default static positioning in normal document flow -->
+    <footer class="footer">
+        <p>Zoo Rescue Tracker Demo © 2024 - CSS Positioning Example</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">
+            Demonstrates: static, relative, absolute, fixed, and sticky positioning
+        </p>
+    </footer>
+</body>
+
+</html>

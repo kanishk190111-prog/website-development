@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unequal Grids</title>
+    <style>
+        /* 
+   * UNEQUAL GRIDS EXPLAINER:
+   * A 12-column grid system divides the page width into 12 equal parts.
+   * "Unequal" grids means columns span different numbers of these 12 units.
+   * Example: 8/12 + 4/12 = 66.67% + 33.33% = 100% total width.
+   * This replicates Bootstrap's col-* system but using pure CSS Grid/Flexbox.
+   * Benefits: Flexible layouts, visual hierarchy, better content organization.
+   */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Section */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 2px solid var(--border);
+            margin-top: 0.5rem;
+        }
+
+        /* Grid System - 12 Column Layout */
+        .grid-row {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 
+   * COLUMN CLASSES: 
+   * col-1 through col-12 replicate Bootstrap's column system
+   * Each col-n spans n columns out of 12 total
+   * Formula: width = (n / 12) * 100%
+   */
+        .col-1 {
+            grid-column: span 1;
+        }
+
+        .col-2 {
+            grid-column: span 2;
+        }
+
+        .col-3 {
+            grid-column: span 3;
+        }
+
+        .col-4 {
+            grid-column: span 4;
+        }
+
+        .col-5 {
+            grid-column: span 5;
+        }
+
+        .col-6 {
+            grid-column: span 6;
+        }
+
+        .col-7 {
+            grid-column: span 7;
+        }
+
+        .col-8 {
+            grid-column: span 8;
+        }
+
+        .col-9 {
+            grid-column: span 9;
+        }
+
+        .col-10 {
+            grid-column: span 10;
+        }
+
+        .col-11 {
+            grid-column: span 11;
+        }
+
+        .col-12 {
+            grid-column: span 12;
+        }
+
+        /* Column Styles */
+        .grid-col {
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-col:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .grid-col::before {
+            content: attr(data-span);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            backdrop-filter: blur(10px);
+        }
+
+        .grid-col h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .grid-col p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .grid-col .icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Color Variations for Visual Distinction */
+        .bg-primary {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border-color: #4338ca;
+        }
+
+        .bg-secondary {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border-color: #6d28d9;
+        }
+
+        .bg-accent {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+            color: white;
+            border-color: #be185d;
+        }
+
+        .bg-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border-color: #047857;
+        }
+
+        .bg-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            border-color: #b45309;
+        }
+
+        .bg-info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-color: #1d4ed8;
+        }
+
+        /* Example Section */
+        .example-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .example-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .example-title .label {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .example-desc {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Code Display */
+        .code-snippet {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+        }
+
+        .code-snippet .comment {
+            color: #64748b;
+        }
+
+        /* Stats Grid */
+        .stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Design - Stack columns on mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.875rem;
+            }
+
+            .grid-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            /* 
+     * MOBILE RESPONSIVE:
+     * On screens < 768px, all columns span full width (12/12)
+     * This replicates Bootstrap's col-12 behavior on mobile
+     * Ensures content stacks vertically for readability
+     */
+            .col-1,
+            .col-2,
+            .col-3,
+            .col-4,
+            .col-5,
+            .col-6,
+            .col-7,
+            .col-8,
+            .col-9,
+            .col-10,
+            .col-11,
+            .col-12 {
+                grid-column: span 12;
+            }
+
+            .example-section {
+                padding: 1.5rem;
+            }
+
+            .grid-col::before {
+                font-size: 0.65rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Explaining Unequal Grids -->
+        <header class="header">
+            <h1>Unequal Grids</h1>
+        </header>
+
+        <!-- Example 1: 8/12 + 4/12 Layout -->
+        <section class="example-section">
+            <h2 class="example-title">
+                <span class="label">Example 1</span>
+                8/12 + 4/12 Layout
+            </h2>
+            <p class="example-desc">
+                Classic blog layout: Main content takes 8 columns (66.67%) and sidebar takes 4 columns (33.33%).
+                Total = 12/12 = 100% width.
+            </p>
+            <div class="code-snippet">
+                <span class="comment">/* 8 columns + 4 columns = 12 columns total */</span><br>
+                .col-8 { grid-column: span 8; } <span class="comment">/* 66.67% width */</span><br>
+                .col-4 { grid-column: span 4; } <span class="comment">/* 33.33% width */</span>
+            </div>
+
+            <div class="grid-row">
+                <div class="grid-col col-8 bg-primary" data-span="8/12">
+                    <span class="icon">📝</span>
+                    <h3>Main Content</h3>
+                    <p>This is the primary content area spanning 8 of 12 columns. It gets 66.67% of the horizontal
+                        space, making it perfect for articles, product descriptions, or detailed content that needs more
+                        room to breathe.</p>
+                    <div class="stats">
+                        <div class="stat">8 Columns</div>
+                        <div class="stat">66.67% Width</div>
+                    </div>
+                </div>
+                <div class="grid-col col-4 bg-secondary" data-span="4/12">
+                    <span class="icon">📊</span>
+                    <h3>Sidebar</h3>
+                    <p>Secondary content in 4 columns. Perfect for navigation, ads, or related links.</p>
+                    <div class="stats">
+                        <div class="stat">4 Columns</div>
+                        <div class="stat">33.33% Width</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Pure CSS Grid Implementation • No Bootstrap CDN Required • Fully Responsive</p>
+        </footer>
+    </div>
+</body>
+
+</html>

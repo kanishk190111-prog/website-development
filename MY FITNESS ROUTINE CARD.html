@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Fitness Routine Cards</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f4f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 
+     * BOX MODEL DEMO: 
+     * margin = space outside border
+     * border = edge around padding + content  
+     * padding = space between border and content
+     * content = the actual text/exercises
+     */
+        .routine-card {
+            background: white;
+            width: 280px;
+            margin: 15px;
+            /* space between cards */
+            border: 2px solid #e5e7eb;
+            /* visible border */
+            border-radius: 12px;
+            /* rounded corners */
+            padding: 20px;
+            /* space inside the border */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            float: left;
+            /* makes cards sit side by side */
+            transition: transform 0.2s;
+        }
+
+        .routine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
+        }
+
+        /* Clear float after every 3rd card to start new row */
+        .clear {
+            clear: both;
+            /* starts a new row cleanly */
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e40af;
+            margin: 0 0 8px 0;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .duration {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .difficulty {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .exercise-list {
+            padding-left: 18px;
+            line-height: 1.6;
+        }
+
+        .exercise-list li {
+            margin-bottom: 6px;
+        }
+
+        /* Mobile: stack cards */
+        @media (max-width: 650px) {
+            .routine-card {
+                float: none;
+                width: auto;
+                margin: 15px auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Fitness Routine Cards</h1>
+
+        <!-- Card 1 -->
+        <div class="routine-card">
+            <h2 class="card-title">Morning Cardio</h2>
+            <div class="card-meta">
+                <span class="duration">30 min</span>
+                <span class="difficulty">Beginner</span>
+            </div>
+            <ul class="exercise-list">
+                <li>Jumping jacks - 3x45s</li>
+                <li>High knees - 3x30s</li>
+                <li>Light jog in place - 10 min</li>
+                <li>Cool down stretch</li>
+            </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="routine-card">
+            <h2 class="card-title">Strength Training</h2>
+            <div class="card-meta">
+                <span class="duration">45 min</span>
+                <span class="difficulty">Intermediate</span>
+            </div>
+            <ul class="exercise-list">
+                <li>Push-ups - 3x12</li>
+                <li>Squats - 4x15</li>
+                <li>Dumbbell rows - 3x10</li>
+                <li>Plank - 3x60s</li>
+            </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="routine-card">
+            <h2 class="card-title">Yoga Flow</h2>
+            <div class="card-meta">
+                <span class="duration">25 min</span>
+                <span class="difficulty">All Levels</span>
+            </div>
+            <ul class="exercise-list">
+                <li>Sun salutation A - 5 rounds</li>
+                <li>Warrior II sequence</li>
+                <li>Pigeon pose - 2 min/side</li>
+                <li>Savasana - 5 min</li>
+            </ul>
+        </div>
+
+        <!-- Clear float to start new row -->
+        <div class="clear"></div>
+
+        <!-- Card 4 -->
+        <div class="routine-card">
+            <h2 class="card-title">HIIT Blast</h2>
+            <div class="card-meta">
+                <span class="duration">20 min</span>
+                <span class="difficulty">Advanced</span>
+            </div>
+            <ul class="exercise-list">
+                <li>Burpees - 40s on, 20s off x6</li>
+                <li>Mountain climbers - 40s on</li>
+                <li>Jump squats - 40s on</li>
+                <li>Rest 1 min, repeat 3 rounds</li>
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+</body>
+
+</html>
