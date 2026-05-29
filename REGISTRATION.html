@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="" width=device-width>
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet type=" text/css" />
+</head>
+
+<body>
+    <form>
+        <fieldset>
+            <!--The fieldset tag is used to group related elements in a form anf draws a box around them-->
+            <legend>PERSONAL INFORMATION:</legend>
+            <label>Full Name:</label>
+            <!--placeholder attribute can be used to provide extra information about entry to be made-->
+            <input type="text" id="fname" placeholder="Enter Name"><br><br>
+            <label>Email:</label>
+            <input type="text" id="email" placeholder="Enter"><br><br>
+            <label>gender</label>
+            <input type="radio" id="gender" value="female">Female<br>
+            <input type="radio" id="gender" value="male">Male<br><br>
+            <label>Birthday:</label>
+            <input type="date" id="birthday" name="birthday"><br><br>
+            <label>SPORTS</label>
+            <input type="radio" id="SPORTS" value="INDOOR">Indoor<br>
+            <input type="radio" id="SPORTS" value="OUTDOOR">Outdoor <br><br>
+        </fieldset>
+        <h3>Additional Details</h3>
+
+        <label>Best time to contact:</label><br>
+        <select name="availability" required>
+            <option value="" selected disabled>Select</option>
+            <option>Morning</option>
+            <option>Afternoon</option>
+            <option>Evening</option>
+            <option>Anytime</option>
+        </select>
+        <br><br>
+        <label>Preferred Contact:</label><br>
+        <input type="radio" name="contact" value="Email" checked> Email
+        <input type="radio" name="contact" value="Phone"> Phone
+        <input type="radio" name="contact" value="SMS"> SMS
+        <br><br>
+
+        <label>Interests:</label><br>
+        <input type="checkbox" name="interest" value="Web Development"> Web Development
+        <input type="checkbox" name="interest" value="AI"> AI
+        <input type="checkbox" name="interest" value="Cloud Computing"> Cloud Computing
+        <input type="checkbox" name="interest" value="Cybersecurity"> Cybersecurity
+        <br><br>
+    </form>
+</body>
+</html>
