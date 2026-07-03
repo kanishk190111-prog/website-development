@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sum of Arguments</title>
+</head>
+
+<body>
+
+    <h2>Sum of Arguments</h2>
+
+    <script>
+        // Function to calculate sum of arguments
+        function sum() {
+            let total = 0;
+
+            for (let i = 0; i < arguments.length; i++) {
+                total = total + arguments[i];
+            }
+
+            document.write("Sum = " + total);
+        }
+
+        // Function 
+        sum(10, 20, 30, 40);
+    </script>
+
+</body>
+
+</html>

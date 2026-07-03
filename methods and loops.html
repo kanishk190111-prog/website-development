@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Methods and Loops</title>
+</head>
+
+<body>
+
+    <h2>Methods and Loops</h2>
+
+    <script>
+        // Print 5 random numbers using a loop
+        document.write("<h3>Random Numbers</h3>");
+
+        for (let i = 1; i <= 5; i++) {
+            document.write(Math.random() + "<br>");
+        }
+
+        // Print current date
+        document.write("<h3>Current Date</h3>");
+        document.write(new Date() + "<br>");
+
+        // Print rounded random number
+        document.write("<h3>Rounded Random Number</h3>");
+        let num = Math.random() * 100;
+        document.write(Math.round(num));
+    </script>
+
+</body>
+
+</html>
