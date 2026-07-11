@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Object Data Structure and Array</title>
+</head>
+
+<body>
+
+    <h1>Object Data Structure and Array</h1>
+
+    <h2>Object Details</h2>
+    <p id="object"></p>
+
+    <h2>Array Details</h2>
+    <p id="array"></p>
+
+    <script>
+        // Object
+        let animal = {
+            name: "Lion",
+            color: "Yellow",
+            age: 5
+        };
+
+        // Array
+        let fruits = ["Apple", "Banana", "Mango", "Orange"];
+
+        // Display Object
+        document.getElementById("object").innerHTML =
+            "Name: " + animal.name +
+            "<br>Color: " + animal.color +
+            "<br>Age: " + animal.age;
+
+        // Display Array
+        document.getElementById("array").innerHTML =
+            "First Fruit: " + fruits[0] +
+            "<br>Second Fruit: " + fruits[1] +
+            "<br>All Fruits: " + fruits.join(", ");
+
+        fruits.pop();
+
+        document.getElementById("array").innerHTML +=
+            "<br>After Pop(): " + fruits.join(", ");
+
+    </script>
+
+</body>
+
+</html>

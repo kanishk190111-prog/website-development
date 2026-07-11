@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Digital Zoo Manager</title>
+</head>
+
+<body>
+
+    <h1>My Digital Zoo Manager</h1>
+
+    <div id="zoo">
+        <div class="animal"> Lion</div>
+        <div class="animal"> Elephant</div>
+        <div class="animal"> Monkey</div>
+    </div>
+
+    <p id="result"></p>
+
+    <button onclick="showAnimals()">Show Animal Count</button>
+
+    <script>
+        function showAnimals() {
+            let zoo = document.getElementById("zoo");
+            let animals = zoo.children;
+
+            document.getElementById("result").innerHTML =
+                "Total Animals: " + animals.length;
+        }
+    </script>
+
+</body>
+
+</html>
