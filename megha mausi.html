@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Baby Countdown Checker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(ganeshgod.jpeg);
+            text-align: center;
+        }
+
+        .container {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h1 {
+            color: #ff4d94;
+        }
+
+        img {
+            width: 250px;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 220px;
+            padding: 10px;
+            margin: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #ff66a3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff3385;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: darkblue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>👶 Baby Countdown Checker</h1>
+
+        <img src="ultrasound3.jpeg" alt="Ultrasound Image">
+        <img src="ultasound2.jpeg" alt="Ultrasound Image">
+        <img src="ultrasound1.jpeg" alt="Ultrasound Image">
+        <img src="ultasound.jpeg" alt="Ultrasound Image">
+
+        <p><b>Mother's Name:</b></p>
+        <input type="text" id="mother" placeholder="Mother's Name">
+        <p><b>Father's Name:</b></p>
+        <input type="text" id="father" placeholder="Father's Name">
+
+        <p><b>Expected Due Date:</b></p>
+        <input type="date" id="dueDate">
+
+        <br>
+
+        <button onclick="checkBaby()">Check Countdown</button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script>
+
+        function checkBaby() {
+
+            var mother = document.getElementById("mother").value;
+            var due = document.getElementById("dueDate").value;
+
+            if (mother == "" || due == "") {
+                document.getElementById("result").innerHTML = "Please enter all details.";
+                return;
+            }
+
+            var today = new Date();
+            var dueDate = new Date(due);
+
+            var difference = dueDate - today;
+
+            var days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+            if (days > 0) {
+                document.getElementById("result").innerHTML =
+                    "👶 Hello <b>" + mother + "</b>!<br><br>Your baby is expected in <b>" + days + "</b> day(s). 💖";
+            }
+            else if (days == 0) {
+                document.getElementById("result").innerHTML =
+                    "🎉 Today is your baby's due date! Best wishes! 👶";
+            }
+            else {
+                document.getElementById("result").innerHTML =
+                    "❤️ Congratulations! Your baby's due date has already passed.";
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
