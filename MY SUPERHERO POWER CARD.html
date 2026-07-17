@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Superhero Power Cards</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        h1 {
+            color: darkblue;
+        }
+
+        .card {
+            width: 220px;
+            background: white;
+            border: 2px solid blue;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px;
+            display: inline-block;
+            box-shadow: 2px 2px 8px gray;
+        }
+
+        h2 {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1> My Superhero Power Cards </h1>
+
+    <div id="cards"></div>
+
+    <script>
+
+        class Superhero {
+
+            constructor(name, power, city) {
+                this.name = name;
+                this.power = power;
+                this.city = city;
+            }
+
+            showCard() {
+                return `
+        <div class="card">
+            <h2>${this.name}</h2>
+            <p><b>Power:</b> ${this.power}</p>
+            <p><b>City:</b> ${this.city}</p>
+        </div>
+        `;
+            }
+        }
+
+        let hero1 = new Superhero("Superman", "Flying", "Metropolis");
+        let hero2 = new Superhero("Batman", "Smart Fighter", "Gotham");
+        let hero3 = new Superhero("Spider-Man", "Wall Climbing", "New York");
+        let hero4 = new Superhero("Wonder Woman", "Super Strength", "Themyscira");
+
+        document.getElementById("cards").innerHTML =
+            hero1.showCard() +
+            hero2.showCard() +
+            hero3.showCard() +
+            hero4.showCard();
+
+    </script>
+
+</body>
+
+</html>
