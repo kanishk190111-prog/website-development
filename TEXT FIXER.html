@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Text Fixer Tool</title>
+</head>
+
+<body>
+
+    <h1>My Text Fixer Tool</h1>
+    <p>Enter your text below:</p>
+
+    <textarea id="textInput" rows="8" cols="60" placeholder="Type your text here..."></textarea>
+
+    <br><br>
+
+    <button onclick="showText()">Show Text</button>
+    <button onclick="clearText()">Clear</button>
+
+    <h2>Output</h2>
+    <p id="output"></p>
+
+    <script>
+        function showText() {
+            let text = document.getElementById("textInput").value;
+            document.getElementById("output").innerHTML = text;
+        }
+
+        function clearText() {
+            document.getElementById("textInput").value = "";
+            document.getElementById("output").innerHTML = "";
+        }
+    </script>
+
+</body>
+
+</html>
