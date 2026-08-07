@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .form-container {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .error {
+      color: red;
+      font-size: 0.85em;
+      margin-top: 4px;
+      display: none;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    #passResult {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e9ecef;
+      border-left: 5px solid #28a745;
+      border-radius: 4px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Event Registration</h2>
+    <form id="registrationForm" novalidate>
+      
+      <!-- Student Name -->
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name">
+        <div class="error" id="nameError">Please enter a valid name (at least 3 characters).</div>
+      </div>
+
+      <!-- Email Address -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <div class="error" id="emailError">Please enter a valid email address.</div>
+      </div>
+
+      <!-- Select Event -->
+      <div class="form-group">
+        <label for="eventSelect">Select Event</label>
+        <select id="eventSelect">
+          <option value="">-- Choose an Event --</option>
+          <option value="Threater">Threater Day</option>
+          <option value="Polaris">Polaris Music Fest</option>
+          <option value="Educational">Educational Fair</option>
+        </select>
+        <div class="error" id="eventError">Please select an event.</div>
+      </div>
+
+      <button type="submit">Register Now</button>
+    </form>
+
+    <!-- Pass Display Section -->
+    <div id="passResult">
+      <h3>Registration Successful!</h3>
+      <p><strong>Name:</strong> <span id="passName"></span></p>
+      <p><strong>Event:</strong> <span id="passEvent"></span></p>
+      <p><strong>Event Pass Code:</strong> <span id="passCode"></span></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent page reload
+
+      // Form Elements
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const eventSelect = document.getElementById('eventSelect').value;
+
+      // Error Message Elements
+      const nameError = document.getElementById('nameError');
+      const emailError = document.getElementById('emailError');
+      const eventError = document.getElementById('eventError');
+
+      // Result Pass Elements
+      const passResult = document.getElementById('passResult');
+
+      let isValid = true;
+
+      // Validate Full Name
+      if (fullName.length < 3) {
+        nameError.style.display = 'block';
+        isValid = false;
+      } else {
+        nameError.style.display = 'none';
+      }
+
+      // Validate Email (Simple Regex Pattern)
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (!email.match(emailPattern)) {
+        emailError.style.display = 'block';
+        isValid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+
+      // Validate Event Selection
+      if (eventSelect === "") {
+        eventError.style.display = 'block';
+        isValid = false;
+      } else {
+        eventError.style.display = 'none';
+      }
+
+      // If form is valid, generate event pass
+      if (isValid) {
+        // Generate a random 6-character Pass Code
+        const randomPassCode = 'EVT-' + Math.floor(100000 + Math.random() * 900000);
+
+        // Display user data in result block
+        document.getElementById('passName').innerText = fullName;
+        document.getElementById('passEvent').innerText = eventSelect;
+        document.getElementById('passCode').innerText = randomPassCode;
+
+        // Show pass block and reset form
+        passResult.style.display = 'block';
+        document.getElementById('registrationForm').reset();
+      } else {
+        passResult.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

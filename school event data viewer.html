@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Event Data Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .event-card {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fafafa;
+      text-align: left;
+      display: none;
+    }
+
+    .event-card p {
+      margin: 6px 0;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>School Event Viewer</h2>
+    <button onclick="loadEventData()">Load Event Details</button>
+    
+    <div id="status"></div>
+    
+    <div id="eventDetails" class="event-card">
+      <h3 id="eventTitle" style="margin-top:0; color:#2c3e50;"></h3>
+      <p><strong>Date:</strong> <span id="eventDate"></span></p>
+      <p><strong>Location:</strong> <span id="eventLocation"></span></p>
+      <p><strong>Description:</strong> <span id="eventDesc"></span></p>
+    </div>
+  </div>
+
+  <script>
+    // Asynchronous function to simulate server data fetching
+    async function fetchEventFromServer() {
+      // Raw event object representing server data
+      const rawData = {
+        title: "Annual Science & Tech Fair 2026",
+        date: "August 25, 2026",
+        location: "Main School Auditorium",
+        description: "Exhibition of student science projects, robotics, and interactive experiments."
+      };
+
+      // 1. Convert JavaScript object to JSON string (simulating server response format)
+      const jsonString = JSON.stringify(rawData);
+
+      // 2. Simulate network delay of 1.5 seconds using Promise and setTimeout
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Return JSON string
+      return jsonString;
+    }
+
+    // Main function to load and display data
+    async function loadEventData() {
+      const statusDiv = document.getElementById("status");
+      const eventCard = document.getElementById("eventDetails");
+
+      // Show loading message and hide old data
+      statusDiv.textContent = "Loading event data from server...";
+      eventCard.style.display = "none";
+
+      try {
+        // Fetch JSON string asynchronously
+        const jsonResponse = await fetchEventFromServer();
+
+        // 3. Parse JSON string back into a JavaScript object
+        const eventData = JSON.parse(jsonResponse);
+
+        // 4. Update DOM elements with parsed details
+        document.getElementById("eventTitle").textContent = eventData.title;
+        document.getElementById("eventDate").textContent = eventData.date;
+        document.getElementById("eventLocation").textContent = eventData.location;
+        document.getElementById("eventDesc").textContent = eventData.description;
+
+        // Clear status and show event card
+        statusDiv.textContent = "";
+        eventCard.style.display = "block";
+      } catch (error) {
+        statusDiv.textContent = "Failed to load event data.";
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>

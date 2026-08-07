@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+  <style>
+    /* Reset basic layout styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* Navigation Bar Styling */
+    .navbar {
+      background-color: #2c3e50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+    }
+
+    .navbar .logo {
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar ul li {
+      margin-left: 20px;
+    }
+
+    .navbar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .navbar ul li a:hover {
+      color: #f39c12;
+    }
+
+    /* Banner Image Section Styling */
+    .banner {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url('https://images.unsplash.com/photo-1622543925917-763c34d1a86e?q=80&w=1200&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #39FF14;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .banner h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .banner p {
+      font-size: 18px;
+    }
+
+    /* Main Content Layout Container */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="logo">MONSTER</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Banner Image Section -->
+  <section class="banner">
+    <h1>Welcome to MONSTER!</h1>
+    <p>You can purchase the limited edition of the MONSTER drink.</p>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="container">
+    <h2>About Us</h2>
+    <p>Headquartered in Corona, California, the company uses an asset-light model focusing on branding while outsourcing production. Its corporate info is found on the Monster Beverage Corporation Website, and consumer branding lives on the Monster Energy Website.</p>
+  </main>
+
+</body>
+</html>
