@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kanishk's Bank</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: red;
+            text-align: center;
+        }
+
+        .box {
+            background-color: white;
+            width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+        }
+
+        #balance {
+            color: green;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+
+        <h1>My Bank App</h1>
+
+        <h2>Balance</h2>
+
+        <h2 id="balance">₹0</h2>
+
+        <hr>
+
+        <h3>Add Transaction</h3>
+
+        <input id="name" type="text" placeholder="Enter name">
+
+        <br>
+
+        <input id="amount" type="number" placeholder="Enter amount">
+
+        <br>
+
+        <select id="type">
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+        </select>
+
+        <br>
+
+        <button onclick="addMoney()">Add</button>
+
+        <h3>Transactions</h3>
+
+        <p id="result"></p>
+
+    </div>
+
+    <script>
+
+        let balance = 0;
+
+        function addMoney() {
+
+            let name = document.getElementById("name").value;
+
+            let amount = Number(document.getElementById("amount").value);
+
+            let type = document.getElementById("type").value;
+
+            if (name == "" || amount == "") {
+                alert("Please enter all details");
+                return;
+            }
+
+            if (type == "income") {
+                balance = balance + amount;
+
+                document.getElementById("result").innerHTML =
+                    "Income: " + name + " ₹" + amount;
+            }
+
+            else {
+                balance = balance - amount;
+
+                document.getElementById("result").innerHTML =
+                    "Expense: " + name + " ₹" + amount;
+            }
+
+            document.getElementById("balance").innerHTML =
+                "₹" + balance;
+
+            document.getElementById("name").value = "";
+
+            document.getElementById("amount").value = "";
+        }
+
+    </script>
+
+</body>
+</html>
